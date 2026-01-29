@@ -19,7 +19,7 @@ if password_input != st.secrets["PASSWORD"]:
 # ---------- FUNCIONES ----------
 @st.cache_data(ttl=3600)
 def load_excel(file_path):
-    return pd.read_excel(file_path, sheet_name=None)
+    return pd.read_excel(file_path, sheet_name=None, engine="openpyxl")
 
 def combinar_hojas(ficheros_list):
     combined_sheets = {}
@@ -312,5 +312,6 @@ pdf_buffer = generar_pdf(filtered_sheets, img_abs=img_abs, img_adn=img_adn, img_
 
 st.download_button("📄 Descargar informe PDF", data=pdf_buffer, file_name="informe_genbea.pdf", mime="application/pdf")
 st.download_button("📥 Descargar datos filtrados", data=output, file_name="muestras_filtradas.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
 
 
