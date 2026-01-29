@@ -36,12 +36,23 @@ def combinar_hojas(ficheros_list):
 urls = ["https://raw.githubusercontent.com/belenbaena-lab/genbea/main/datos/genbea2025.xlsx",
        "https://raw.githubusercontent.com/belenbaena-lab/genbea/main/datos/genbea2026-1.xlsx"]
 
+nombre = []
+fichero = []
+
+for url in urls:
+    base = f.split("/")[-1].replace(".xlsx", "")
+    fichero = pd.read_excel(url, sheet_name=None, engine="openpyxl")
+
+    nombre.append(base)
+    fichero.append(fichero)
+
+
 # ---------- DETECCIÓN DE ARCHIVOS ----------
 archivos = [load_excel(url) for url in urls]
 
 # Extraer años y trimestres
 trimestres_dict = {}
-for f in archivos:
+for f in fichero:
     base = f.split("/")[-1].replace(".xlsx", "")
     if "-" in base:
         anio, trimestre = base.replace("genbea", "").split("-")
@@ -313,6 +324,7 @@ pdf_buffer = generar_pdf(filtered_sheets, img_abs=img_abs, img_adn=img_adn, img_
 
 st.download_button("📄 Descargar informe PDF", data=pdf_buffer, file_name="informe_genbea.pdf", mime="application/pdf")
 st.download_button("📥 Descargar datos filtrados", data=output, file_name="muestras_filtradas.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
 
 
 
