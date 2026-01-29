@@ -33,7 +33,7 @@ def combinar_hojas(ficheros_list):
 
 # ---------- DETECCIÓN DE ARCHIVOS ----------
 data_folder = "datos"
-archivos = sorted([f for f in os.listdir(data_folder) if f.endswith(".xlsx")])
+archivos = load_excel("genbea2026-1.xlsx")
 
 # Extraer años y trimestres
 trimestres_dict = {}
@@ -309,3 +309,4 @@ pdf_buffer = generar_pdf(filtered_sheets, img_abs=img_abs, img_adn=img_adn, img_
 
 st.download_button("📄 Descargar informe PDF", data=pdf_buffer, file_name="informe_genbea.pdf", mime="application/pdf")
 st.download_button("📥 Descargar datos filtrados", data=output, file_name="muestras_filtradas.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
