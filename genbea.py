@@ -31,9 +31,12 @@ def combinar_hojas(ficheros_list):
                 combined_sheets[hoja] = pd.concat([combined_sheets[hoja], df], ignore_index=True)
     return combined_sheets
 
+def nombre_url(url):
+    return url.split("\")[-1].replace(".xlsx", "")
+
 #----------- Urls de Github -----------------
-urls = ["datos/genbea2026-1.xlsx",
-       "datos/genbea2025.xlsx"]
+urls = ["https://raw.githubusercontent.com/belenbaena-lab/genbea/main/datos/genbea2025.xlsx",
+       "https://raw.githubusercontent.com/belenbaena-lab/genbea/main/datos/genbea2026-1.xlsx"]
 
 # ---------- DETECCIÓN DE ARCHIVOS ----------
 archivos = [load_excel(url) for url in urls]
@@ -312,6 +315,7 @@ pdf_buffer = generar_pdf(filtered_sheets, img_abs=img_abs, img_adn=img_adn, img_
 
 st.download_button("📄 Descargar informe PDF", data=pdf_buffer, file_name="informe_genbea.pdf", mime="application/pdf")
 st.download_button("📥 Descargar datos filtrados", data=output, file_name="muestras_filtradas.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
 
 
 
